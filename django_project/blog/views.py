@@ -40,6 +40,33 @@ def edit_post(request, id):
 
 
 
+
+
+# from django.shortcuts import render,redirect, get_object_or_404
+# from django.contrib import messages
+# from .models import Post
+# from .forms import PostForm
+
+
+def delete_post(request, id):
+    post = get_object_or_404(Post, pk=id)
+    context = {'post': post}    
+    
+    if request.method == 'GET':
+        return render(request, 'blog/post_confirm_delete.html',context)
+    elif request.method == 'POST':
+        post.delete()
+        messages.success(request,  'The post has been deleted successfully.')
+        return redirect('posts')
+
+# ...
+
+
+
+
+
+
+
 def home(request):
     posts = Post.objects.all()
     context = {'posts': posts}
