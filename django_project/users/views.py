@@ -2,6 +2,23 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm, RegisterForm
+# from ./streetcred/models import Cred
+# from ../streetcred/models import Cred
+# from streetcred/models import Cred
+# from models import Cred
+
+from django.db import models
+from django.contrib.auth.models import User
+# class Cred(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     ip = models.TextField()
+#     mac = models.TextField()
+
+#     def __str__(self):
+#         return self.user
+
+
+
 
 def sign_up(request):
     if request.method == 'GET':
@@ -16,6 +33,8 @@ def sign_up(request):
             user.save()
             messages.success(request, 'You have singed up successfully.')
             login(request, user)
+
+
             return redirect('posts')
         else:
             messages.error(request, 'Form is not yet valid.')
