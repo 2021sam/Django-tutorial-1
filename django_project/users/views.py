@@ -17,7 +17,7 @@ def sign_up(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            messages.success(request, 'You have singed up successfully.')
+            messages.success(request, 'You have successfully signed up.')
             login(request, user)
 
 
