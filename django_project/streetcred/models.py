@@ -23,6 +23,8 @@ class Profile(models.Model):
     work_city_address = models.TextField(max_length=50, blank=True)
     woirk_state_address = models.TextField(max_length=50, blank=True)
     work_zip_address = models.TextField(max_length=50, blank=True)
+    mobile_cell_number = models.TextField(max_length=14, blank=True)
+    # (456) 456-1234       Will need to format.
 
 
 #this method to generate profile when user is created
