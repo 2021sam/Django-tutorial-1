@@ -1,4 +1,4 @@
 env
 db.sqlite3
-migrations
 __pycache__
+00??_*.py
