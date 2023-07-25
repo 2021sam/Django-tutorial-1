@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import  login_required
 from .models import Post
 from .forms import PostForm
+from django.utils.dateparse import parse_datetime
+
 
 @login_required
 def delete_post(request, id):
@@ -42,10 +44,20 @@ def create_post(request):
         context = {'form': PostForm()}
         return render(request,'blog/post_form.html',context)
     elif request.method == 'POST':
+
+        # print(HttpRequest.POST)
+
         form = PostForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.author = request.user
+            # print(form['date_end'].value())
+            date_end_str = form['date_end'].value()
+            date_start_str = form['date_start'].value()
+            date_end = parse_datetime(date_end_str)
+            date_start = parse_datetime(date_start_str)
+            duration = date_end - date_start
+            user.duration = duration
             user.save()
             messages.success(request, 'The post has been created successfully.')
             return redirect('posts')
