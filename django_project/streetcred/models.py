@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
+CHOICES_WORK_AUTHORIZATION = (
+    ('select work authorization', 'Select Work Authorization'),
+    ('us_citizen', 'US Citizen'),
+    ('canadian_citizen', 'Canadian Citizen')
+)
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -24,8 +31,9 @@ class Profile(models.Model):
     work_state_address = models.TextField(max_length=50, blank=True)
     work_zip_address = models.TextField(max_length=50, blank=True)
     mobile_cell_number = models.TextField(max_length=14, blank=True)
+    willing_to_relocate = models.BooleanField(default=False)
     # (456) 456-1234       Will need to format.
-
+    work_authorization = models.CharField(max_length=25, blank=True, choices=CHOICES_WORK_AUTHORIZATION)
 
 #this method to generate profile when user is created
 @receiver(post_save, sender=User)
