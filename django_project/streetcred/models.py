@@ -7,7 +7,12 @@ from django.dispatch import receiver
 CHOICES_WORK_AUTHORIZATION = (
     ('select work authorization', 'Select Work Authorization'),
     ('us_citizen', 'US Citizen'),
-    ('canadian_citizen', 'Canadian Citizen')
+    ('canadian_citizen', 'Canadian Citizen'),
+    ('Have H1 Visa', 'Have H1 Visa'),
+    ('Need H1 Visa', 'Need H1 Visa'),
+    ('Green Card Holder', 'Green Card Holder'),
+    ('TN Permit Holder', 'TN Permit Holder'),
+    ('Employment Authourization Document', 'Employment Authorization Document')
 )
 
 # Create your models here.
@@ -33,7 +38,10 @@ class Profile(models.Model):
     mobile_cell_number = models.TextField(max_length=14, blank=True)
     willing_to_relocate = models.BooleanField(default=False)
     # (456) 456-1234       Will need to format.
-    work_authorization = models.CharField(max_length=25, blank=True, choices=CHOICES_WORK_AUTHORIZATION)
+    work_authorization = models.CharField(max_length=34, blank=True, choices=CHOICES_WORK_AUTHORIZATION)
+
+    def __str__(self):
+        return f'{self.user}, {self.address}'
 
 #this method to generate profile when user is created
 @receiver(post_save, sender=User)

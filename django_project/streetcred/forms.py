@@ -1,10 +1,10 @@
 from django.forms import ModelForm
 from .models import Profile
 
-class PostForm(ModelForm):
+class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['user', 'address', 'birth_date', 'drivers_license', 'linked_in']
+        fields = ['user', 'work_authorization', 'willing_to_relocate', 'address', 'birth_date', 'drivers_license', 'linkedin']
 
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
     # address = models.TextField(max_length=500, blank=True)
