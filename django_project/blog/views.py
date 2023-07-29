@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import  login_required
 from .models import Post
 from .forms import PostForm
 from django.utils.dateparse import parse_datetime
-
+from django.http import JsonResponse
 
 @login_required
 def delete_post(request, id):
@@ -66,6 +66,17 @@ def create_post(request):
             return render(request,'blog/post_form.html',{'form':form})  
 
 
+def skills(request):
+    queryset = Post.objects.filter(author=request.user)
+    count = queryset.count()
+    print(count)
+
+    
+
+
+    return JsonResponse(count, safe=False)
+
+ 
 def home(request):
     posts = Post.objects.all()
     context = {'posts': posts  }
