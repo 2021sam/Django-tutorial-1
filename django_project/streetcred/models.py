@@ -39,7 +39,7 @@ class Profile(models.Model):
     willing_to_relocate = models.BooleanField(default=False)
     # (456) 456-1234       Will need to format.
     work_authorization = models.CharField(max_length=34, default='select work authorization', choices=CHOICES_WORK_AUTHORIZATION)
-
+    # https://stackoverflow.com/questions/51623747/django-best-way-to-create-a-multiple-choice-field
     def __str__(self):
         return f'{self.user}, {self.address}'
 
