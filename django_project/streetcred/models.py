@@ -38,7 +38,7 @@ class Profile(models.Model):
     mobile_cell_number = models.TextField(max_length=14, blank=True)
     willing_to_relocate = models.BooleanField(default=False)
     # (456) 456-1234       Will need to format.
-    work_authorization = models.CharField(max_length=34, blank=True, choices=CHOICES_WORK_AUTHORIZATION)
+    work_authorization = models.CharField(max_length=34, default='select work authorization', choices=CHOICES_WORK_AUTHORIZATION)
 
     def __str__(self):
         return f'{self.user}, {self.address}'
