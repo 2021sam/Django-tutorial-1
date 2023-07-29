@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 CHOICES_WORK_AUTHORIZATION = (
@@ -20,6 +21,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.TextField(max_length=500, blank=True)
     birth_date = models.DateField(null=True, blank=True, help_text='Please use the following format: <em>YYYY-MM-DD</em>.')
+    # birth_month = models.IntegerField(blank=True, min_value=1, max_value=12)
+    birth_month = models.PositiveSmallIntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(12)])
+    birth_day = models.PositiveSmallIntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(31)])
     ip1 = models.TextField(max_length=46, blank=True)
     ip2 = models.TextField(max_length=46, blank=True)
     mac1 = models.TextField(max_length=50, blank=True)
@@ -39,6 +43,7 @@ class Profile(models.Model):
     willing_to_relocate = models.BooleanField(default=False)
     # (456) 456-1234       Will need to format.
     work_authorization = models.CharField(max_length=34, choices=CHOICES_WORK_AUTHORIZATION, default='select work authorization')
+    open_to_public = models.BooleanField(default=False)
     # https://stackoverflow.com/questions/51623747/django-best-way-to-create-a-multiple-choice-field
     def __str__(self):
         return f'{self.user}, {self.address}'

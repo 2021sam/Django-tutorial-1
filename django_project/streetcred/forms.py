@@ -4,7 +4,7 @@ from .models import Profile
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['user', 'work_authorization', 'willing_to_relocate', 'address', 'birth_date', 'drivers_license', 'linkedin']
+        fields = ['user', 'work_authorization', 'willing_to_relocate', 'address', 'birth_month', 'birth_day', 'birth_date', 'drivers_license', 'linkedin', 'open_to_public']
 
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
     # address = models.TextField(max_length=500, blank=True)
