@@ -70,13 +70,50 @@ def skills(request):
     queryset = Post.objects.filter(author=request.user)
     count = queryset.count()
     print(count)
+    d = {}
+    d['count'] = count 
+    for r in queryset:
+        # print(r.skill1)
+        # print(r.skill1_months)
+        # print(r.skill1_years)
+        print(f'{r.skill1}: {r.skill1_years} years, {r.skill1_months} months')
+        print(f'{r.skill2}: {r.skill2_years} years, {r.skill2_months} months')
+        # if r.skill1 not in d:
+        #     d[r.skill1] = r.skill1_years * 12 + r.skill1_months
+        # elif r.skill1 in d:
+        #     d[r.skill1] += r.skill1_years * 12 + r.skill1_months
 
-    
+        
+        # if r.skill1 not in d:
+        #     d[r.skill1] = 0
+        # d[r.skill1] += r.skill1_years * 12 + r.skill1_months
+
+        # if r.skill2 not in d:
+        #     d[r.skill2] = 0
+        # d[r.skill2] += r.skill2_years * 12 + r.skill2_months
+
+        # if r.skill3 not in d:
+        #     d[r.skill3] = 0
+        # d[r.skill3] += r.skill3_years * 12 + r.skill3_months
+
+        d = add_skills(d, r.skill1, r.skill1_years, r.skill1_months)
+        d = add_skills(d, r.skill2, r.skill2_years, r.skill2_months)
+        d = add_skills(d, r.skill3, r.skill3_years, r.skill3_months)
 
 
-    return JsonResponse(count, safe=False)
+    return JsonResponse(d, safe=False)
 
- 
+
+def add_skills(d, skill, years, months):
+    if skill:
+        skill = skill.lower()
+        if skill not in d:
+            d[skill] = 0
+        d[skill] += years * 12 + months
+
+    return d
+
+
 def home(request):
     posts = Post.objects.all()
     context = {'posts': posts  }
