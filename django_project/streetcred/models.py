@@ -19,7 +19,7 @@ CHOICES_WORK_AUTHORIZATION = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.TextField(max_length=500, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True, help_text='Please use the following format: <em>YYYY-MM-DD</em>.')
     ip1 = models.TextField(max_length=46, blank=True)
     ip2 = models.TextField(max_length=46, blank=True)
     mac1 = models.TextField(max_length=50, blank=True)
