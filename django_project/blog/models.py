@@ -3,6 +3,15 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 import datetime
 
+CHOICES_DGREE_TYPE = (
+    ('select degree type', 'Select Degree Type'),
+    ('none', 'None'),
+    ('vocational', 'Vocational'),
+    ('high school', 'High School'),
+    ('bachelors degree', 'Bachelor\'s Degree'),
+    ('masters degree', 'Master\'s Degree'),
+    ('ged', 'GED')
+)
 
 class Post(models.Model):
     title = models.CharField(max_length=120)
@@ -21,6 +30,9 @@ class Post(models.Model):
     duration = models.DurationField(default=datetime.timedelta(seconds=0))
     hourly_pay_rate = models.FloatField(default=0)
     payment_form = models.CharField(max_length=50, blank=True)
+
+    degree_type = models.CharField(max_length=20, blank=True, choices = CHOICES_DGREE_TYPE, default='select degree type')
+
 
     description = models.TextField(blank=True)
     skill1 = models.CharField(max_length=30, blank=True, help_text = 'Note: Skills are mutually exclusive in terms of adding time to subset skills.  Furthermore, only experience time with matching terms are added.')
